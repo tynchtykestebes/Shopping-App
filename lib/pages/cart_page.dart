@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/cart_provider.dart';
+import 'package:shopping_app/providers/cart_provider.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context).cart;
+    final cart = context.watch<CartProvider>().cart;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart Page'),
@@ -54,7 +54,8 @@ class CartPage extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Provider.of<CartProvider>(context, listen: false)
+                            context
+                                .read<CartProvider>()
                                 .removeProduct(cartItem);
                             Navigator.of(context).pop();
                           },
